@@ -7,7 +7,7 @@ using namespace std;
 bool unit_test(Solution* solution, const char* input, int expectedNEc, int expectedNEw, int expectedNCc){
     Result * res = solution->count(input);
     std::cout << "***********"<<endl;
-    std::cout<<"input: "<<endl<<input<<endl<<"Expected oput:" <<endl<< "Number of English words: " << expectedNEw<<endl<<"Number of English characters: " <<expectedNEc << endl<<"Number of Chinese characters: "<<expectedNCc << endl<<endl;
+    std::cout<<"input: "<<endl<<input<<endl<<endl<<"Expected output:" <<endl<< "Number of English words: " << expectedNEw<<endl<<"Number of English characters: " <<expectedNEc << endl<<"Number of Chinese characters: "<<expectedNCc << endl<<endl;
     std::cout << "Actual output: " << endl<< res->toString()<<endl;
     if(res->getNChnChar() == expectedNCc && res->getNEngCharacter()==expectedNEc && res->getNEngWord() == expectedNEw){
         std::cout << "testing passed" << std::endl;
@@ -27,7 +27,7 @@ int main() {
     std::string input;
 
     for(int i = 0; i<N;i++){
-        // temporary variable get line string and converted into integers
+        // temporary variable input from use cases and stored into expected outputs
         string tmp;
         int enec; //expected number of English characters
         int enew;//expected number of English words
