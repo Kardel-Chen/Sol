@@ -9,12 +9,12 @@
 #include "Result.h"
 
 class Solution {
-    enum {UTF8, UNICODE, GBK};
 public :
+    /**
+     * Function for counting Number of Chinese character, English words and English characters.
+     *  input: string (char array)
+     * */
     Result* count(char * input);
-//    Result* count2(char * input);
-private:
-
 };
 
 

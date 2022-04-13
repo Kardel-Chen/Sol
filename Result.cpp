@@ -32,3 +32,5 @@ Result::Result(int nEc, int nCc, int nEw) {
     this->nCc = nCc;
     this->nEw = nEw;
 }
+
+Result::~Result() = default;

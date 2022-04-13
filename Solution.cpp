@@ -11,7 +11,7 @@ using namespace std;
  * 2. According to the decoding method, find the range of chinese character
  * 3. normally english character takes 1-2
  * */
-Result *Solution::count(char *input) {
+Result* Solution::count(char *input) {
     int nEngWord = 0;
     int nEngChar = 0;
     int nChChar = 0;
@@ -23,8 +23,6 @@ Result *Solution::count(char *input) {
         if((65 <= *input && *input <= 90) || (97 <= *input && *input <= 122)){
             //if input is in the range [A, Z] or [a, z], we determine there will be an english word
             while((65 <= *input && *input <= 90) || (97 <= *input && *input <= 122)){
-//                cout<<1;
-
                 input++;
                 nEngChar++;
             }
@@ -35,29 +33,30 @@ Result *Solution::count(char *input) {
             // if the character not starting with \xexxxx, then it is not a chinese character.
             //else, if the character is not in the range[\xe4\xb8\x80, \xe9\xbf\xaf], then it is not a chinese character
             if((256+*input)>>4 == 14){
-                //starting with e
+                //starting with e, which includes Chinese character in UTF-8
                 int value = ((256+*input)<<16) + ((256+*(input+1))<<8) + 256+*(input+2);
+                // range of CHN character [\xe4\xb8\x80, \xe9\xbf\xaf]
                 int startingRange = (0xe4<<16) + (0xb8<<8) + 0x80;
                 int endingRange = (0xe9<<16) + (0xbf<<8) + 0xaf;
                 if (startingRange<=value && value <= endingRange){
                     nChChar++;
                 }
-//                cout<<3;
+                // Since character starting with /e takes 3 bytes, input should move 3.
                 input += 3;
             }else{
                 int startingValue = (256+*input)>>4;
+                // character start with 0b11, takes 2bytes, so move 2
                 if(0b1100==startingValue || startingValue==0b1101){
-//                    cout<<2;
                     input += 2;
                 }else if(0b1111 == startingValue){
-//                    cout<<4;
+                    // char starting with ob1111 takes 4 bytes.
                     input += 4;
                 }
             }
         }else{
+            // meaningless char
             input++;
         }
     }
-    cout << nEngChar << " "  << nChChar << " " << nEngWord;
     return new Result(nEngChar, nChChar, nEngWord);
 }

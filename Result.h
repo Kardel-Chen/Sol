@@ -7,14 +7,21 @@
 
 
 #include <string>
-
+/*
+ *
+ *  Result for Solution
+ *  NEc->Number of English characters
+ *  NEw->Number of English words
+ *  NCc->Number of Chinese characters
+ * */
 class Result {
 private:
     int nEc;
     int nCc;
     int nEw;
 public:
-    Result(int nEc=0, int nCc=0, int nEw=0);
+    explicit Result(int nEc=0, int nCc=0, int nEw=0);
+    ~Result();
     int getNEngWord();
     int getNChnChar();
     int getNEngCharacter();
