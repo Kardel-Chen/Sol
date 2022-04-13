@@ -19,7 +19,7 @@ bool unit_test(Solution* solution, const char* input, int expectedNEc, int expec
 }
 
 int main() {
-
+    // reading testing cases
     std::ifstream file("testingCases.txt");
     Solution * solution = new Solution();
     int N = 7;
@@ -27,17 +27,20 @@ int main() {
     std::string input;
 
     for(int i = 0; i<N;i++){
-
+        // temporary variable get line string and converted into integers
         string tmp;
-        int enec;
-        int enew;
-        int encc;
-
+        int enec; //expected number of English characters
+        int enew;//expected number of English words
+        int encc;//expected number of Chinese characters
+        //read inputs
         std::getline(file, input);
+        // read expected Num of English Char and store it into enec
         std::getline(file, tmp);
         enec = std::stoi(tmp);
+        // read expected Num of English words and store it into enew
         std::getline(file, tmp);
         enew = std::stoi(tmp);
+        // read expected Num of Chinese Char and store it into encc
         std::getline(file, tmp);
         encc = std::stoi(tmp);
         if (unit_test(solution, input.c_str(), enec, enew, encc)) {
