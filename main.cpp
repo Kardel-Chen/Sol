@@ -3,7 +3,8 @@
 using namespace std;
 bool unit_test(Solution* solution, char* input, int expectedNEc, int expectedNEw, int expectedNCc){
     Result * res = solution->count(input);
-//    cout<<res->toString()<<endl;
+    std::cout<<input<<" expected oput:" <<endl<< "Number of English characters: " << expectedNEc<<", Number of English words: " <<expectedNEw << ", Number of expected Chinese characters: "<<expectedNCc << endl;
+    std::cout << "output: " << res->toString()<<endl;
     if(res->getNChnChar() == expectedNCc && res->getNEngCharacter()==expectedNEc && res->getNEngWord() == expectedNEw){
         std::cout << "testing passed" << std::endl;
         return true;
@@ -22,6 +23,7 @@ int main() {
     auto* sol = new Solution();
     // all english characters. single word
     char example1[] = "helloworld";
+    // the 3 expected outputs are {expected Number of English Character, expected Number of English words, expected Number of Chinese characters}
     int expectedOutput1[] = {10, 1, 0};
     if(unit_test(sol, example1, expectedOutput1[0],expectedOutput1[1],expectedOutput1[2])){
         passed+=1;

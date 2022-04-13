@@ -7,9 +7,10 @@
 using namespace std;
 /*
  * Overview:
- * 1. determine the decoding method: utf-8/unicode/GBK ()
+ * 1. determine the decoding method: utf-8/unicode/GBK (to-do)
  * 2. According to the decoding method, find the range of chinese character
- * 3. normally english character takes 1-2
+ * 3. normally english character takes 1 byte, and is positive (starting with 0), other languages' character starting with 1(meaning negative)
+ * 4. chinese characters are in the range [\xe4\xb8\x80, \xe9\xbf\xaf]. So we can move our pointer according to that.
  * */
 Result* Solution::count(char *input) {
     int nEngWord = 0;
@@ -17,7 +18,6 @@ Result* Solution::count(char *input) {
     int nChChar = 0;
 // in linux, the decoding method is by default utf-8
     while(*input != 0){
-//        cout<<"0"<<(int)*input<<endl;
         //in utf-8 chinese character(non-ascii character) takes 3 bytes, but for all ascii characters(English character) it takes 1 byte.
         //Also, For UTF-8, characters in ASCII starting with 0, others starting with 1, meaning that if *input < 0, then *input is not a english character
         if((65 <= *input && *input <= 90) || (97 <= *input && *input <= 122)){
@@ -28,7 +28,6 @@ Result* Solution::count(char *input) {
             }
             nEngWord++;
         }else if(*input < 0){
-//            cout<<1<<endl;
             // for utf-8, chinese characters are in the range [u4e00-u9fef] (unicode)
             // if the character not starting with \xexxxx, then it is not a chinese character.
             //else, if the character is not in the range[\xe4\xb8\x80, \xe9\xbf\xaf], then it is not a chinese character
@@ -54,7 +53,7 @@ Result* Solution::count(char *input) {
                 }
             }
         }else{
-            // meaningless char
+            // if meaningless char
             input++;
         }
     }
