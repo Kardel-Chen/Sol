@@ -14,7 +14,7 @@ public :
      * Function for counting Number of Chinese character, English words and English characters.
      *  input: string (char array)
      * */
-    Result* count(char * input);
+    Result* count(const char * input);
 };
 
 

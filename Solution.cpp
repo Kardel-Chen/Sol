@@ -12,7 +12,7 @@ using namespace std;
  * 3. normally english character takes 1 byte, and is positive (starting with 0), other languages' character starting with 1(meaning negative)
  * 4. chinese characters are in the range [\xe4\xb8\x80, \xe9\xbf\xaf]. So we can move our pointer according to that.
  * */
-Result* Solution::count(char *input) {
+Result* Solution::count(const char *input) {
     int nEngWord = 0;
     int nEngChar = 0;
     int nChChar = 0;

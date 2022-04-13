@@ -1,10 +1,14 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "Solution.h"
 using namespace std;
-bool unit_test(Solution* solution, char* input, int expectedNEc, int expectedNEw, int expectedNCc){
+// function for unit testing
+bool unit_test(Solution* solution, const char* input, int expectedNEc, int expectedNEw, int expectedNCc){
     Result * res = solution->count(input);
-    std::cout<<input<<" expected oput:" <<endl<< "Number of English characters: " << expectedNEc<<", Number of English words: " <<expectedNEw << ", Number of expected Chinese characters: "<<expectedNCc << endl;
-    std::cout << "output: " << res->toString()<<endl;
+    std::cout << "***********"<<endl;
+    std::cout<<"input: "<<endl<<input<<endl<<"Expected oput:" <<endl<< "Number of English words: " << expectedNEw<<endl<<"Number of English characters: " <<expectedNEc << endl<<"Number of Chinese characters: "<<expectedNCc << endl<<endl;
+    std::cout << "Actual output: " << endl<< res->toString()<<endl;
     if(res->getNChnChar() == expectedNCc && res->getNEngCharacter()==expectedNEc && res->getNEngWord() == expectedNEw){
         std::cout << "testing passed" << std::endl;
         return true;
@@ -13,67 +17,35 @@ bool unit_test(Solution* solution, char* input, int expectedNEc, int expectedNEw
         return false;
     }
 }
+
 int main() {
-    // NEc->Number of English characters
-    // NEw->Number of English words
-    // NCc->Number of Chinese characters
-    std::cout << "****Unit Test****"<<endl;
-    int total = 0;
+
+    std::ifstream file("testingCases.txt");
+    Solution * solution = new Solution();
+    int N = 7;
     int passed = 0;
-    auto* sol = new Solution();
-    // all english characters. single word
-    char example1[] = "helloworld";
-    // the 3 expected outputs are {expected Number of English Character, expected Number of English words, expected Number of Chinese characters}
-    int expectedOutput1[] = {10, 1, 0};
-    if(unit_test(sol, example1, expectedOutput1[0],expectedOutput1[1],expectedOutput1[2])){
-        passed+=1;
-    }
-    total += 1;
-    // all english characters. multiple word
-    char example2[] = "hello wo rld";
-    int expectedOutput2[] = {10, 3, 0};
-    if(unit_test(sol, example2, expectedOutput2[0],expectedOutput2[1],expectedOutput2[2])){
-        passed+=1;
-    }
-    total += 1;
+    std::string input;
 
-    // english & Chinese characters. single english word
-    char example3[] = "hello 世界";
-    int expectedOutput3[] = {5, 1, 2};
-    if(unit_test(sol, example3, expectedOutput3[0],expectedOutput3[1],expectedOutput3[2])){
-        passed+=1;
-    }
-    total += 1;
-    // english & Chinese characters. chinese character
-    char example4[] = "hello 世world界";
-    int expectedOutput4[] = {10, 2, 2};
-    if(unit_test(sol, example4, expectedOutput4[0],expectedOutput4[1],expectedOutput4[2])){
-        passed+=1;
-    }
-    total += 1;
-    // All empty string
-    char example5[] = "      ";
-    int expectedOutput5[] = {0,0,0};
-    if(unit_test(sol, example5, expectedOutput5[0],expectedOutput5[1],expectedOutput5[2])){
-        passed+=1;
-    }
-    total += 1;
-    // All empty string2
-    char example6[] = "";
-    int expectedOutput6[] = {0,0,0};
-    if(unit_test(sol, example6, expectedOutput6[0],expectedOutput6[1],expectedOutput6[2])){
-        passed+=1;
-    }
-    total += 1;
+    for(int i = 0; i<N;i++){
 
-    // english & Chinese characters. single english word, with character from other languages
-    char example7[] = "hello 世不قويㅂㅈㅁ١worうld界";
-    int expectedOutput7[] = {10,3,3};
-    if(unit_test(sol, example7, expectedOutput7[0],expectedOutput7[1],expectedOutput7[2])){
-        passed+=1;
-    }
-    total += 1;
-    std::cout << "****Unit Test End, Case pass percentage: " << (1.0*passed)/total<<"***" <<endl;
+        string tmp;
+        int enec;
+        int enew;
+        int encc;
 
+        std::getline(file, input);
+        std::getline(file, tmp);
+        enec = std::stoi(tmp);
+        std::getline(file, tmp);
+        enew = std::stoi(tmp);
+        std::getline(file, tmp);
+        encc = std::stoi(tmp);
+        if (unit_test(solution, input.c_str(), enec, enew, encc)) {
+            passed += 1;
+        }
+
+    }
+    file.close();
+    std::cout << "****Unit Test End, Case pass percentage: " << (1.0*passed)/N<<"***" <<endl;
 
 }
